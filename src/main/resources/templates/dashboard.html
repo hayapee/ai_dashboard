@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #343a40;
+        }
+
+        .form-check-label {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-label {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #495057;
+        }
+
+        .form-control {
+            border-radius: 0;
+            border: 1px solid #ced4da;
+        }
+
+        .btn-primary {
+            font-weight: bold;
+            background-color: #007bff;
+            border-color: #007bff;
+            border-radius: 0;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
+
+        #output-div {
+            display: none;
+        }
+
+        textarea.form-control {
+            width: 100%;
+            height: 300px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Dashboard</h1>
+        <form id="dashboard-form" method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="function" value="generateText" id="generateText"
+                        checked>
+                    <label class="form-check-label" for="generateText">
+                        Generate Text (ChatGPT)
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="function" value="textToImage" id="textToImage">
+                    <label class="form-check-label" for="textToImage">
+                        Text to Image
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="function" value="imageToText" id="imageToText">
+                    <label class="form-check-label" for="imageToText">
+                        Image to Text
+                    </label>
+                </div>
+            </div>
+            <div id="input-div" class="mb-3">
+                <label for="input-text" class="form-label">Input text:</label>
+                <textarea class="form-control" name="input-text" id="input-text" rows="5"></textarea>
+            </div>
+            <div id="output-div" class="mt-3" style="display: none;">
+                <label for="output-text" class="form-label">Output text:</label>
+                <textarea class="form-control" name="output-text" id="output-text" rows="5" readonly></textarea>
+            </div>
+            <div id="file-div" class="mb-3" style="display: none;">
+                <label for="input-file" class="form-label">Input image:</label>
+                <input class="form-control" type="file" name="input-file" id="input-file">
+            </div>
+            <div id="create-chat-room" class="mb-3" style="display: none;">
+                <button type="button" class="btn btn-primary">新しいチャットルームを作成</button>
+            </div>
+            <div id="view-existing-chat-rooms" class="mb-3" style="display: none;">
+                <button type="button" class="btn btn-primary">過去に作成したチャットルーム一覧</button>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary" id="submit-button">Submit</button>
+            </div>
+        </form>
+    </div>
+    <script>
+        document.querySelectorAll('input[type=radio]').forEach(function (radio) {
+            radio.addEventListener('change', function () {
+                var inputDiv = document.getElementById('input-div');
+                var fileDiv = document.getElementById('file-div');
+                var createChatRoom = document.getElementById('create-chat-room');
+                var viewExistingChatRooms = document.getElementById('view-existing-chat-rooms');
+                var submitButton = document.getElementById('submit-button');
+
+                if (this.value === 'imageToText') {
+                    inputDiv.style.display = 'none';
+                    fileDiv.style.display = 'block';
+                    createChatRoom.style.display = 'none';
+                    viewExistingChatRooms.style.display = 'none';
+                    submitButton.style.display = 'block';
+                } else if (this.value === 'generateText') {
+                    inputDiv.style.display = 'none';
+                    fileDiv.style.display = 'none';
+                    createChatRoom.style.display = 'block';
+                    viewExistingChatRooms.style.display = 'block';
+                    submitButton.style.display = 'none';
+                } else {
+                    inputDiv.style.display = 'block';
+                    fileDiv.style.display = 'none';
+                    createChatRoom.style.display = 'none';
+                    viewExistingChatRooms.style.display = 'none';
+                    submitButton.style.display = 'block';
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
